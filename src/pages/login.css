@@ -6,7 +6,6 @@ section{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 180px;
 }
 
 #login_box{
@@ -22,6 +21,7 @@ section{
     font-size: 20px;
     letter-spacing: -4px;
     text-align: center;
+    margin-bottom: 50px;
 }
 #login_box_inner{
     width: 500px;
@@ -33,9 +33,6 @@ section{
 }
 #login_box input{
     margin: 10px;
-}
-#login_btn{
-    margin-top: 10px;
 }
 #login_footer{
     width: 400px;

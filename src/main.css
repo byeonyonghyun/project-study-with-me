@@ -147,8 +147,10 @@
     align-items: center;
 }
 
+
+
 /* ✅ 본문 및 카드 섹션 */
-section {
+#contate_wrap {
     margin-top: 100px;
     max-width: 1000px;
     width: 100%;
@@ -257,6 +259,8 @@ section {
         padding: 10px;
     }
 }
+
+
 
 /* ✅ 푸터 하단 고정 + 완전 밀착 */
 footer {
