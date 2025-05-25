@@ -4,25 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
-
-    <link rel="stylesheet" href="./set.css">
-    <link rel="stylesheet" href="./login.css">
+    <link rel="stylesheet" href="/set.css">
+    <link rel="stylesheet" href="/login.css">
 </head>
 <body>
-    <section>
-        <div id="login_box">
-            <a href="./main.html" class="logo">Study Wite Me💻</a>
-            <div id="login_box_inner">
-                <input type="email" id="login_id" placeholder="이메일">
-                <input type="password" id="login_pass" placeholder="비밀번호">
-            </div>
+<section>
+    <div id="login_box">
+        <a href="/main.html" class="logo">Study With Me💻</a>
+        <form id="login_box_inner" action="/users/login" method="post">
+            <input type="email" name="email" placeholder="이메일" required>
+            <input type="password" name="password" placeholder="비밀번호" required>
             <input type="submit" value="로그인" id="login_btn">
-            <div id="login_footer">
-                <a href="#">아이디(닉네임)찾기</a>
-                <a href="#">비밀번호 찾기</a>    
-                <a href="./register.html">회원가입</a>    
-            </div>
+        </form>
+        <div id="login_footer">
+            <a href="#">아이디(닉네임)찾기</a>
+            <a href="#">비밀번호 찾기</a>
+            <a href="/register.html">회원가입</a>
         </div>
-    </section>
+    </div>
+</section>
 </body>
 </html>

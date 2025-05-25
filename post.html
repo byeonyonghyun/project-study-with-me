@@ -1,33 +1,109 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>스터디그룹 모집 게시판</title>
+    <meta charset="UTF-8">
+    <title>모집 게시글 상세보기</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
-<body>
+<body class="container mt-5">
 
-  <h1>스터디그룹 모집 게시판</h1>
+<h2 class="mb-4">📄 모집 글 상세</h2>
 
-  <a href="write.html">글쓰기</a>
+<!-- 게시글 상세 출력 영역 -->
+<div id="postDetail"></div>
 
-  <hr>
+<!-- 버튼 영역 -->
+<div class="mt-4">
+    <button id="applyBtn" class="btn btn-success mt-3">🙋 지원하기</button>
+    <button id="editBtn" class="btn btn-warning" style="display:none;">✏️ 수정하기</button>
+    <button id="deleteBtn" class="btn btn-danger" style="display:none;">🗑 삭제하기</button>
+    <a href="/board.html" class="btn btn-secondary">⬅ 게시판으로</a>
+    <a href="/main.html" class="btn btn-outline-primary">🏠 메인으로</a>
+</div>
 
-  <div>
-    <div>
-      <a href="post1.html">[서울] 웹 개발 스터디 함께하실 분!</a><br>
-      작성자: 홍길동 | 날짜: 2025-05-16 | 조회수: 123
-    </div>
-    <hr>
-    <div>
-      <a href="post2.html">[온라인] 영어 회화 매일 연습 스터디 모집</a><br>
-      작성자: 김영희 | 날짜: 2025-05-15 | 조회수: 98
-    </div>
-    <hr>
-    <div>
-      <a href="post3.html">[부산] 데이터 분석 입문 스터디 모집합니다.</a><br>
-      작성자: 박철수 | 날짜: 2025-05-14 | 조회수: 75
-    </div>
-  </div>
+<!-- 스크립트 영역 -->
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const postId = urlParams.get('id');
+
+    if (!postId) {
+        alert("잘못된 접근입니다.");
+        window.location.href = "/board.html";
+    }
+
+    let postData;  // 게시글 데이터 저장용
+
+    // ✅ 게시글 조회 및 버튼 표시 제어
+    fetch(`/posts/${postId}`)
+        .then(response => {
+            if (!response.ok) throw new Error("게시글이 존재하지 않습니다.");
+            return response.json();
+        })
+        .then(post => {
+            postData = post;
+
+            // 상세 내용 출력
+            document.getElementById("postDetail").innerHTML = `
+                <h3>${post.title}</h3>
+                <p><strong>분야:</strong> ${post.category}</p>
+                <p><strong>진행 방식:</strong> ${post.progressType} ${post.region ? '(' + post.region + ')' : ''}</p>
+                <p><strong>모집 인원:</strong> ${post.recruitNum}</p>
+                <p><strong>진행 요일:</strong> ${post.days || '미정'}</p>
+                <p><strong>시간대:</strong> ${post.timeSlot || '미정'}</p>
+                <p><strong>마감일:</strong> ${post.deadline || '없음'}</p>
+                <p><strong>태그:</strong> ${post.tags || '없음'}</p>
+                <p><strong>상태:</strong> ${post.status}</p>
+                <hr>
+                <p>${post.content.replaceAll('\n', '<br>')}</p>
+                <p class="text-end text-muted">작성일: ${post.createdAt}</p>
+            `;
+
+            // 본인 글일 경우 버튼 제어
+            fetch('/users/me')
+                .then(res => res.json())
+                .then(user => {
+                    if (user.id === post.author.id) {
+                        document.getElementById("applyBtn").style.display = "none";
+                        document.getElementById("editBtn").style.display = "inline-block";
+                        document.getElementById("deleteBtn").style.display = "inline-block";
+                    }
+                });
+        })
+        .catch(err => {
+            alert(err.message);
+            window.location.href = "/board.html";
+        });
+
+    // ✅ 지원하기 기능
+    document.getElementById("applyBtn").addEventListener("click", function() {
+        if (confirm("이 모집글에 지원하시겠습니까?")) {
+            fetch(`/notifications/apply/${postId}`, { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        alert("✅ 지원 완료! 작성자에게 알림이 전송되었습니다.");
+                        document.getElementById("applyBtn").disabled = true;
+                    } else {
+                        alert("❌ 지원 실패 (이미 지원했거나 오류)");
+                    }
+                });
+        }
+    });
+
+    // ✅ 삭제 기능
+    document.getElementById("deleteBtn").addEventListener("click", function() {
+        if (confirm("정말 삭제하시겠습니까?")) {
+            fetch(`/posts/${postId}`, { method: 'DELETE' })
+                .then(response => {
+                    if (response.ok) {
+                        alert("✅ 삭제 완료");
+                        window.location.href = "/board.html";
+                    } else {
+                        alert("❌ 삭제 실패");
+                    }
+                });
+        }
+    });
+</script>
 
 </body>
 </html>

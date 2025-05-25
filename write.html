@@ -1,29 +1,128 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>글쓰기 - 스터디그룹 모집 게시판</title>
+    <meta charset="UTF-8">
+    <title>스터디 / 프로젝트 모집 글쓰기</title>
+    <link rel="stylesheet" href="./set.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
-<body>
+<body class="container mt-5">
 
-  <h1>스터디그룹 모집 글쓰기</h1>
+<h2 class="mb-4">모집 글 작성</h2>
 
-  <form action=# method="post">
-    <label for="title">제목:</label><br>
-    <input type="text" id="title" name="title"><br><br>
+<form id="postForm">
+    <div class="mb-3">
+        <label class="form-label">제목</label>
+        <input type="text" name="title" class="form-control" required>
+    </div>
 
-    <label for="writer">작성자:</label><br>
-    <input type="text" id="writer" name="writer"><br><br>
+    <div class="mb-3">
+        <label class="form-label">모집 분야</label>
+        <select name="category" class="form-select" required>
+            <option value="STUDY">스터디</option>
+            <option value="PROJECT">IT 프로젝트</option>
+        </select>
+    </div>
 
-    <label for="location">지역:</label><br>
-    <input type="text" id="location" name="location"><br><br>
+    <div class="mb-3">
+        <label class="form-label">모집 인원</label>
+        <input type="number" name="recruitNum" class="form-control" required>
+    </div>
 
-    <label for="content">내용:</label><br>
-    <textarea id="content" name="content" rows="10" cols="50"></textarea><br><br>
+    <div class="mb-3">
+        <label class="form-label">진행 방식</label>
+        <select name="progressType" class="form-select" required>
+            <option value="ONLINE">온라인</option>
+            <option value="OFFLINE">오프라인</option>
+            <option value="MIXED">혼합</option>
+        </select>
+    </div>
 
-    <input type="submit" value="등록">
-    <a href=#>목록으로</a>
-  </form>
+    <div class="mb-3">
+        <label class="form-label">지역 (오프라인일 경우)</label>
+        <input type="text" name="region" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">진행 요일</label><br>
+        <input type="checkbox" name="days" value="월"> 월
+        <input type="checkbox" name="days" value="화"> 화
+        <input type="checkbox" name="days" value="수"> 수
+        <input type="checkbox" name="days" value="목"> 목
+        <input type="checkbox" name="days" value="금"> 금
+        <input type="checkbox" name="days" value="토"> 토
+        <input type="checkbox" name="days" value="일"> 일
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">시간대</label>
+        <select name="timeSlot" class="form-select">
+            <option value="">선택안함</option>
+            <!-- 09시 ~ 22시 -->
+            <script>
+                for(let i=9; i<=22; i++) {
+                    document.write(`<option value="${i}시">${i}시</option>`);
+                }
+            </script>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">모집 마감일</label>
+        <input type="date" name="deadline" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">관심 태그 (콤마로 구분)</label>
+        <input type="text" name="tags" class="form-control" placeholder="예: Java,백엔드,자격증">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">상세 정보</label>
+        <textarea name="content" rows="6" class="form-control" required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">작성 완료</button>
+</form>
+
+<br>
+<a href="/main.html" class="btn btn-secondary mt-3">⬅ 메인으로</a>
+
+<script>
+    document.getElementById("postForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const form = event.target;
+        const days = Array.from(form.querySelectorAll('input[name="days"]:checked')).map(cb => cb.value).join(',');
+
+        const postData = {
+            title: form.title.value,
+            category: form.category.value,
+            recruitNum: parseInt(form.recruitNum.value),
+            progressType: form.progressType.value,
+            region: form.region.value || null,
+            days: days || null,
+            timeSlot: form.timeSlot.value || null,
+            deadline: form.deadline.value || null,
+            tags: form.tags.value || null,
+            content: form.content.value
+        };
+
+        fetch('/posts/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(postData)
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("게시글 작성 완료!");
+                window.location.href = "/board.html";
+            } else {
+                alert("작성 실패. 로그인 여부를 확인하세요.");
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
