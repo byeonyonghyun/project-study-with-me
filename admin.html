@@ -1,0 +1,66 @@
+<!-- ✅ admin.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 유저 목록</title>
+</head>
+<body>
+<h2>📋 전체 유저 목록 (관리자 전용)</h2>
+
+<!-- ✅ 전체 유저 목록을 가져오는 버튼 -->
+<button onclick="fetchUsers()">유저 불러오기</button>
+<br><br>
+
+<table border="1" id="userTable" style="display:none;">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>이름</th>
+        <th>닉네임</th>
+        <th>이메일</th>
+        <th>직업</th>
+        <th>권한</th>
+    </tr>
+    </thead>
+    <tbody id="userBody">
+    </tbody>
+</table>
+
+<script>
+    function fetchUsers() {
+        fetch('/admin/users')
+            .then(response => {
+                if (!response.ok) {
+                    alert("⛔ 관리자만 접근 가능합니다!");
+                    return [];
+                }
+                return response.json();
+            })
+            .then(data => {
+                const table = document.getElementById("userTable");
+                const tbody = document.getElementById("userBody");
+                tbody.innerHTML = ""; // 초기화
+
+                data.forEach(user => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${user.id}</td>
+                        <td>${user.name}</td>
+                        <td>${user.nickname}</td>
+                        <td>${user.email}</td>
+                        <td>${user.job}</td>
+                        <td>${user.role}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+                table.style.display = "table";
+            });
+    }
+</script>
+
+<br>
+<a href="/login.html">로그인 페이지로</a>
+</body>
+</html>

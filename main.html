@@ -3,78 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>StudyWithMe - 메인</title>
     <link rel="stylesheet" href="./set.css">
     <link rel="stylesheet" href="./main.css">
+
+    <script src="./header.js" defer></script>
 </head>
 <body>
-    
-    <!-- 헤더 -->
+<!-- 헤더 -->
+<header id="header">
+    <div class="logo">
+        <a href="#">Study With Me💻</a>
+    </div>
+    <div id="menu">
+        <ul id="menu_list">
+            <li>
+                <a href="#">스터디</a>
+                <ul class="nav_list" id="study_nav">
+                    <li><a href="./board.html">모집 게시판</a></li>
+                    <li><a href="./write.html">스터디 작성</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">프로젝트</a>
+                <ul class="nav_list" id="project_nav">
+                    <li><a href="./board.html">모집 게시판</a></li>
+                    <li><a href="./write.html">프로젝트 작성</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">커뮤니티</a>
+            </li>
+            <li>
+                <a href="#">공모전</a>
+            </li>
+        </ul>
+    </div>
+    <div id="login_link">
+        <a href="./login.html">로그인</a>
+    </div>
+</header>
 
-    <header>
-        <div class="logo">
-            <a href="#">Study Wite Me💻</a>
+<!-- 메인 -->
+<section>
+    <div class="content">
+        <div id="popular">
+            <h2 style="padding: 10px 20px;">🔥 인기 모집글</h2>
+            <div id="popularList" class="card-list"></div>
         </div>
-        <div id="menu">
-            <ul id="menu_list">
-                <li>
-                    <a href="#">스터디</a>
-                    <ul class="nav_list" id="study_nav">
-                        <li><a href="">메뉴</a></li>
-                        <li><a href="">메뉴</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">프로젝트</a>
-                    <ul class="nav_list" id="project_nav">
-                        <li><a href="">메뉴</a></li>
-                        <li><a href="">메뉴</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">커뮤니티</a>
-                </li>
-                <li>
-                    <a href="#">공모전</a>
-                </li>
-            </ul>
+    </div>
+    <div class="content">
+        <div id="popular">
+            <h2 style="padding: 10px 20px;">⏰ 실시간 모집글</h2>
+            <div id="popularList" class="card-list"></div>
         </div>
-        <div id="login_link">
-            <a href="./login.html">로그인</a>
-        </div>
-    </header>
+    </div>
+</section>
 
-    <!-- 메인 -->
-    <section>
-        <div class="content">
-            <div id="popular">
-                <div id="content_inner"></div>
-            </div>
-            <div id="realTime">
-                <div id="content_inner">
-                    <h1>실시간 모집글</h1>
-                    <div id="studyGroupList"></div>
-                    <script src="./study.js"></script>
+<!-- 푸터 -->
+<footer>
+    <div id="footer_inner">
+        <a href="#">개인정보 처리방침</a>  |
+        <a href="#">이용약관</a>
+        <p>StudyWithMe는 대학생들을 위한 협업 플랫폼입니다.</p>
+    </div>
+</footer>
+
+<!-- JS 로직 (더미데이터 포함) -->
+<script>
+    const posts = [
+        {
+            title: "📚 토익 스터디 모집 (중급반)",
+            region: "서울 강남구",
+            category: "스터디",
+            imageUrl: "https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?auto=format&fit=crop&w=800&q=80",
+            deadline: "2025-05-20T18:00:00"
+        },
+        {
+            title: "자바 웹 개발 프로젝트 팀원 구해요!",
+            region: "서울 관악구",
+            category: "프로젝트",
+            imageUrl: "https://cdn.okky.kr/static/og/articles/1260509",
+            deadline: "2025-05-25T23:59:00"
+        },
+        {
+            title: "📝 1일 1문제 알고리즘 스터디",
+            region: "온라인",
+            category: "스터디",
+            imageUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
+            deadline: "2025-05-22T09:00:00"
+        },
+        {
+            title: "React 프론트엔드 사이드 프로젝트",
+            region: "부산 해운대구",
+            category: "프로젝트",
+            imageUrl: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80",
+            deadline: "2025-05-28T18:00:00"
+        },
+        {
+            title: "공시생 모임 (소통 + 동기부여)",
+            region: "대전 유성구",
+            category: "스터디",
+            imageUrl: "https://eventusstorage.blob.core.windows.net/evs/Image/kokkirimentalcare/56637/ProjectInfo/Cover/9677998b50dc4a6d888438b04d3616f0.png",
+            deadline: "2025-05-30T20:00:00"
+        }
+    ];
+
+        const container = document.getElementById("popularList");
+        posts.forEach(post => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.innerHTML = `
+                <img src="${post.imageUrl}" class="thumb">
+                <div class="info">
+                  <strong>${post.title}</strong><br>
+                  <span>${post.region} · ${post.category}</span><br>
+                  <small>🕒 ${new Date(post.deadline).toLocaleString()}</small>
                 </div>
-            </div>
-        </div>
-        <div class="content">
-            <div id="content_inner">
-                
-            </div>
-        </div>
-        <div class="content">
-            <div id="content_inner">
-            </div>
-        </div>
-    </section>
-    <footer>
-        <div id="footer_inner">
-            <a href="#">개인정보 처리방침</a>  |      
-            <a href="#">이용약관</a>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem omnis libero dolores provident, soluta fuga dolorem, quaerat architecto vero facere impedit autem officia voluptas,
-                 incidunt eum quidem porro eveniet maiores.</p>                 
-        </div>
-    </footer>
+            `;
+            container.appendChild(card);
+        });
+</script>
 </body>
 </html>

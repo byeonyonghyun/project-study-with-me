@@ -1,17 +1,30 @@
-
-header{
+/* ✅ 헤더 */
+#header {
     min-width: 1500px;
     width: 100%;
     height: 75px;
     display: flex;
     flex-direction: row;
-    justify-content:space-between;
+    justify-content: space-between;
     align-items: center;
     padding: 0 150px;
     border-bottom: 1px solid #ddd;
     text-align: center;
+    position: relative;
+    background-color:  #f7f6f3;
+    z-index: 999;
+    transition: transform 0.5s ease;
 }
-.logo{
+#header.header--fixed {
+  position: fixed;
+  top: 0;
+  transform: translateY(0);
+}
+#header.header--hidden {
+  transform: translateY(-100%);
+}
+
+.logo {
     width: 300px;
     font-family: "Press Start 2P", system-ui;
     padding-left: 20px;
@@ -20,7 +33,7 @@ header{
     margin-right: 20px;
 }
 
-#menu{
+#menu {
     width: 500px;
     height: 100%;
     display: flex;
@@ -29,7 +42,8 @@ header{
     align-items: center;
     position: relative;
 }
-#menu_list{
+
+#menu_list {
     width: 100%;
     height: 100%;
     display: flex;
@@ -38,31 +52,34 @@ header{
     align-items: center;
     font-size: 15px;
 }
-#menu_list > li{
+
+#menu_list > li {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 #menu_list > li > a {
     margin: 0;
 }
-#menu_list li a:hover{
+
+#menu_list li a:hover {
     color: #0064ff;
     font-size: 16px;
 }
-#menu_list li :hover > a{
+
+#menu_list li :hover > a {
     color: #0064ff;
     font-size: 16px;
 }
-#menu_list li:hover .nav_list{
+
+#menu_list li:hover .nav_list {
     display: block;
 }
-.nav_list:hover {
-    display: block;
-}
-.nav_list{
+
+.nav_list {
     display: none;
     width: 125px;
     height: 80px;
@@ -73,26 +90,31 @@ header{
     border-radius: 10px;
     border: 1px solid #0064ff;
 }
-#study_nav{
+
+.nav_list:hover {
+    display: block;
+}
+
+#study_nav {
     left: -5px;
 }
-#project_nav{
+
+#project_nav {
     left: 120px;
 }
-.nav_list li{
+
+.nav_list li {
     width: 100%;
     height: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.nav_list li a{
+
+.nav_list li a {
     margin: 0;
     font-size: 15px;
 }
-
-
-
 
 #login_link {
     width: 300px;
@@ -100,10 +122,12 @@ header{
     color: #aaa;
     margin-left: 20px;
 }
+
 #login_link a:hover {
     text-decoration: underline;
 }
-#nav{
+
+#nav {
     width: 500px;
     height: 80px;
     display: flex;
@@ -113,7 +137,8 @@ header{
     position: absolute;
     top: 65px;
 }
-#nav_inner{
+
+#nav_inner {
     width: 500px;
     height: 100%;
     display: flex;
@@ -121,74 +146,123 @@ header{
     justify-content: center;
     align-items: center;
 }
-section{
-    max-width:1000px ;
+
+/* ✅ 본문 및 카드 섹션 */
+section {
+    margin-top: 100px;
+    max-width: 1000px;
     width: 100%;
+    flex: 1;
+    margin-bottom: 50px;
 }
-/* main - slide */
-
-
-/* main - content */
 
 .content {
     width: 100%;
-    height: 500px;
+    height: auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 10px 30px 0;
 }
-#popular{
-    width: 49%;
-    height: 100%;
-    background-color: #fff;
-    border-radius: 20px;
+.content h2 {
+    font-size: 25px;
 }
-#realTime{
-    width: 49%;
-    height: 100%;
-    background-color: #fff;
-    border-radius: 20px;
-}
-#content_inner{
+#popular {
     width: 100%;
-    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px 40px 20px; /* ✅ 여백 재조정 */
     background-color: #fff;
     border-radius: 20px;
-    border: 1px solid #ddd;
-    padding: 20px;
-}
-#content_inner h1{
-    font-size: 20px;
-    margin-bottom: 20px;
+    min-height: 600px; /* ✅ 배경 박스 크기 고정 */
+    box-sizing: border-box;
 }
 
-.group {
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ccc;
+.card-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+    padding: 10px 10px 0;
+    margin-bottom: 0px; /* ✅ 카드 하단 여백 축소 */
 }
-.group a{
-    display: block;
-    font-size: 20px;
-    margin-top: 20px;
-    margin-bottom: 10px
-}
-.group p {
-    display: inline-block; 
-    padding: 5px 10px; 
-    margin-right: 5px; 
-    border-radius: 15px; 
-    background-color: #f0f0f0; 
-    font-size: 10px; 
-}
-/* footer */
 
-footer{
+.card {
+    width: 250px;
+    height: 310px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 0 5px #ccc;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card img.thumb {
     width: 100%;
-    height: 100px;
+    height: 150px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+}
+
+.card .info {
+    padding: 10px 10px 8px;
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 0;
+    line-height: 1.05; /* ✅ 최대한 타이트하게 */
+}
+
+.card .info strong {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.15;
+    margin-bottom: 1px;
+}
+
+.card .info span,
+.card .info small {
+    line-height: 1.05;
+    margin: 0;
+    padding: 0;
+}
+
+/* ✅ 반응형 */
+@media (max-width: 1200px) {
+    .card {
+        width: 220px;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-list {
+        justify-content: center;
+    }
+    .card {
+        width: 90%;
+        max-width: 320px;
+    }
+    #popular {
+        padding: 10px;
+    }
+}
+
+/* ✅ 푸터 하단 고정 + 완전 밀착 */
+footer {
+    width: 100%;
     background-color: #deddda;
-    padding: 10px 150px 0;
+    padding: 15px 150px 15px;
     text-align: left;
-    position: relative;
-    transform: translateY(100px);
+    box-sizing: border-box;
 }
