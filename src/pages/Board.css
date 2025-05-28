@@ -1,0 +1,122 @@
+#post_wrap{
+    width: 100%;
+    height: 100%;
+    max-width: 1200px;
+    min-height: 100vh;
+    margin-top: 100px;
+
+}
+
+/* search_bar */
+.post_search{
+    width: 100%;
+    height: 85px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.post_search_bar{
+    width: 800px;
+    border: #0064ff 1px solid;
+    border-radius: 30px;
+    padding-left: 30px;
+}
+.search_btn{
+    width: 100px;
+    background-color: #0064ff;
+    color: #fff;
+    transition: 0.2s ease;
+}
+.search_btn:hover {
+  background-color: #0064aa;
+}
+
+
+
+
+/* PostList */
+.Post_nav {
+  width: 100%;
+  margin-top: 2rem;
+  font-size: 1rem;
+}
+
+.Post_nav th, .Post_nav td {
+  padding: 12px 16px;
+  text-align: center;
+}
+
+.Post_nav th {
+  font-weight: 600;
+  background-color: #f2f2f2;
+  
+}
+
+.Post_nav tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.Post_nav td a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.Post_nav td a:hover {
+  text-decoration: underline;
+}
+
+/* 페이징 스타일 */
+nav ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin-top: 1.5rem;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.page-item {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.page-item.active {
+  background-color: #e0e0e0;
+}
+
+.page-link {
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: inherit;
+}
+
+.page-link:hover {
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+/* Link BTN */
+.link-button {
+  display: inline-block;
+  width: 100px;
+  height: 40px;
+  font-size: 15px;
+  margin: 15px 5px;
+  padding-left: 10px;
+  border-radius: 10px;
+  border: 0;
+  outline: none;
+  background-color: #0064ff;
+  color: #fff;
+  text-decoration: none;
+  line-height: 40px;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+.link-button:hover {
+  background-color: #0064aa;
+}
